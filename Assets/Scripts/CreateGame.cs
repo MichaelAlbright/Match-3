@@ -20,6 +20,8 @@ public class CreateGame : MonoBehaviour {
 	GameObject tile2 = null;
 
 	public Text goldText;
+	public Text woodText;
+	public Text foodText;
 
 	public GameObject[] tile;
 	List<GameObject> tileBank = new List<GameObject> ();
@@ -30,6 +32,8 @@ public class CreateGame : MonoBehaviour {
 	Tile[,] tiles = new Tile[cols, rows];
 
 	private int gold;
+	private int wood;
+	private int food;
 
 	public int startingPlayer = 100;
 	public int startingEnemy = 100;
@@ -64,6 +68,10 @@ public class CreateGame : MonoBehaviour {
 				tileBank.Add (o);
 			}
 			gold = 0;
+			wood = 0;
+			food = 0;
+			woodText.text = "Wood: " + wood.ToString ();
+			foodText.text = "Food: " + food.ToString ();
 			goldText.text = "Gold: " + gold.ToString ();
 			playerCurrent = startingPlayer;
 			enemyCurrent = startingEnemy;
@@ -138,12 +146,12 @@ public class CreateGame : MonoBehaviour {
 					} else
 						counter = 1;
 					if (counter == 3) {
-						if (tiles[c,r].tileObj.tag == "Sword")
-							SwordAttack ();
+						if (tiles[c,r].tileObj.tag == "Wood")
+							Wood ();
 						if (tiles[c,r].tileObj.tag == "Shield")
 							ShieldAttack ();
-						if (tiles[c,r].tileObj.tag == "Magic")
-							MagicAttack ();
+						if (tiles[c,r].tileObj.tag == "Food")
+							Food ();
 						if (tiles[c,r].tileObj.tag == "Gold")
 							Gold ();
 						if (tiles [c, r] != null)
@@ -169,12 +177,12 @@ public class CreateGame : MonoBehaviour {
 					} else
 						counter = 1;
 					if (counter == 3) {
-						if (tiles[c,r].tileObj.tag == "Sword")
-							SwordAttack ();
+						if (tiles[c,r].tileObj.tag == "Wood")
+							Wood ();
 						if (tiles[c,r].tileObj.tag == "Shield")
 							ShieldAttack ();
-						if (tiles[c,r].tileObj.tag == "Magic")
-							MagicAttack ();
+						if (tiles[c,r].tileObj.tag == "Food")
+							Food ();
 						if (tiles[c,r].tileObj.tag == "Gold")
 							Gold ();
 						if (tiles [c, r] != null)
@@ -237,20 +245,11 @@ public class CreateGame : MonoBehaviour {
 		goldText.text = "Gold: " + gold.ToString ();
 	}
 
-	void SwordAttack()
+	void Wood()
 	{
-		int rand;
-		rand = Random.Range(0, 3);
-		if (rand == 0) {
-			Debug.Log ("Tie");
-		} else if (rand == 1) {
-			Debug.Log ("Lose");
-			PlayerDamaged ();
-		} else if (rand == 2) {
-			Debug.Log ("Win");
-			EnemyDamaged();
-		} else
-			Debug.Log ("enemy move not working right");
+		Debug.Log ("Add 3 Wood");
+		wood = wood + 3;
+		woodText.text = "Wood: " + wood.ToString ();
 	}
 
 	void ShieldAttack()
@@ -269,20 +268,11 @@ public class CreateGame : MonoBehaviour {
 			Debug.Log ("enemy move not working right");
 	}
 
-	void MagicAttack()
+	void Food()
 	{
-		int rand;
-		rand = Random.Range(0, 3);
-		if (rand == 0) {
-			Debug.Log ("Lose");
-			PlayerDamaged ();
-		} else if (rand == 1) {
-			Debug.Log ("Win");
-			EnemyDamaged ();
-		} else if (rand == 2) {
-			Debug.Log ("Tie");
-		} else
-			Debug.Log ("enemy move not working right");
+		Debug.Log ("Add 3 Food");
+		food = food + 3;
+		foodText.text = "Food: " + food.ToString ();
 	}
 
 	void PlayerDamaged()
